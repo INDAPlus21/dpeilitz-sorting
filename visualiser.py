@@ -2,6 +2,9 @@
 from tkinter import *
 from tkinter import ttk
 from bubble import bubble_sort
+from merge import merge_sort
+from insert import insertion_sort
+from selection import selection_sort
 
 import random
 
@@ -26,7 +29,7 @@ num = 100
 # generate an array of random values
 
 algorithm_name = StringVar()
-algo_list = ['Bubble Sort', 'Merge Sort']
+algo_list = ['Bubble Sort', 'Merge Sort', 'Selection Sort', 'Insertion Sort']
 
 
 def draw(dataArray):
@@ -47,7 +50,7 @@ def generate():
     data = []
 
     input = int(e1.get())
-    # KAn behöva fixa detta, den ger error vid strings. Ah well
+    # Kan behöva fixa detta, den ger error vid strings. Ah well
     # Create as many elements as can fit inside of the window
     for i in range(0, input):
         data.append(random.randint(1, c_height))
@@ -60,11 +63,19 @@ def generate():
 
 def sort():
     global data
-    #timeTick = set_speed()
-    bubble_sort(data, draw)
+    if algo_menu.get() == 'Bubble Sort':
+        bubble_sort(data, draw)
 
+    elif algo_menu.get() == 'Merge Sort':
+        merge_sort(data, draw)
 
-### USER INTERFACE ###
+    elif algo_menu.get() == 'Insertion Sort':
+        insertion_sort(data, draw)
+
+    elif algo_menu.get() == 'Selection Sort':
+        selection_sort(data, draw)
+
+        ### USER INTERFACE ###
 UI_frame = Frame(window, width=900, height=300, bg=WHITE)
 UI_frame.grid(row=1, column=0)
 
