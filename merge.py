@@ -1,37 +1,44 @@
+import math
+
+
 def merge_sort(data, draw):
-    # MERGE SORT (top-down) #
+    if len(data) > 1:
+        mid = len(data) // 2
+        left = data[:mid]
+        right = data[mid:]
 
-    mergesort(A as list)
-       if length(A) == 1 then return A
+        # Recursive call on each half
+        merge_sort(left, draw)
+        merge_sort(right, draw)
 
-        left ← A[0]..A[length(A)/2]
-        right ← A[length(A)/2]..A[length(A)-1]
+        # Two iterators for traversing the two halves
+        i = 0
+        j = 0
 
-        left ← mergesort(left)
-        right ← mergesort(right)
+        # Iterator for the main list
+        k = 0
 
-        return merge(left, right)
-    end func
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                # The value from the left half has been used
+                data[k] = left[i]
+                # Move the iterator forward
+                i += 1
+            else:
+                data[k] = right[j]
+                j += 1
+            # Move to the next slot
+            k += 1
 
-    merge(A as list, B as list):
-        C ← []
+        # For all the remaining values
+        while i < len(left):
+            data[k] = left[i]
+            i += 1
+            k += 1
 
-        while length(A) > 0 and length(B) > 0
-           if A[0] > B[0] then
-               add B[0] to the end of C
-                remove B[0] from B
-            else
-               add A[0] to the end of C
-                remove A[0] from A
-            end if
-        end while
-        while length(A) > 0
-           add A[0] to the end of C
-            remove A[0] from A
-        end while
-        while length(B) > 0
-           add B[0] to the end of C
-            remove B[0] from B
-        end while
-        return C
-    end func
+        while j < len(right):
+            data[k] = right[j]
+            j += 1
+            k += 1
+
+        draw(data)
